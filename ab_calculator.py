@@ -358,9 +358,26 @@ elif page == "Bootstrap — Average per User":
     # ── CSV upload ────────────────────────────────────────────────────────────
     st.markdown("**Upload data**")
     st.markdown(
-        '<p class="note">Upload a CSV with two columns: one for per-user metric values in treatment, '
-        'one for control. Column names do not matter — first column = treatment, second = control. '
-        'One row per user.</p>',
+        '<div class="param-box">'
+        "<b>CSV format:</b> one row per user, two columns — treatment and control. "
+        "Each row represents two <i>different</i> users: one from the treatment group and one from the control group. "
+        "The value in each cell is that user's metric (e.g. number of document views, time spent, revenue).<br><br>"
+        "<b>Example — 4 users per group, metric = document views:</b>"
+        "</div>",
+        unsafe_allow_html=True
+    )
+
+    example_df = pd.DataFrame({
+        "treatment_views": [3, 0, 8, 1],
+        "control_views":   [2, 1, 4, 0],
+    })
+    st.dataframe(example_df, hide_index=True, use_container_width=False)
+    st.markdown(
+        '<p class="note">'
+        "Row 1: user A in treatment had 3 views, user B in control had 2 views — two different users.<br>"
+        "Column names can be anything — first column = treatment, second = control.<br>"
+        "Groups do not need to be the same size — export each group separately and combine in Excel."
+        "</p>",
         unsafe_allow_html=True
     )
 
